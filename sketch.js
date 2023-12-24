@@ -1,41 +1,28 @@
+var granularity;
+
 function setup() {
     // put setup code here
     createCanvas(400, 400);
-    background(0);
-    angleMode(DEGREES);
-
-    fill(255);
-    text("輸入多邊形的邊數.", 280, 345); 
-
-    inputInt = createInput();
-    inputInt.position(290, 360);
-    inputInt.size(70);
-
-    buttonSubmit = createButton("輸入");
-    buttonSubmit.position(360, 360);
-    buttonSubmit.mousePressed(drawPolygon);
-    
-    stroke('yellow')
-    noFill();
+    rectMode(CENTER);
+    fill('rgba(100, 255, 255, 10)');
+    stroke('rgb(250, 100, 100)');
+    max_depth = 5;
+    granularity = width/(4*max_depth);
 }
-function drawPolygon() {
+
+function draw() {
     // put drawing code here
-    background(0);
+    background(255);
+    len = width/2;
+    drawSquare(width/2, height/2, len, granularity);
+}
 
-    x = width*0.5;
-    y = height*0.5;
-    var numEdges = int(inputInt.value());
-    r = 150;
-    d = 180;
-
-    beginShape();
-    for (i=0; i<=numEdges; i++) {
-        sx = x + r*sin(d);
-        sy = y + r*cos(d);
-        vertex(sx, sy);
-        d += (360/numEdges);
+function drawSquare(x, y, len){
+    square(x, y, len);
+    if (len > granularity) {
+        drawSquare(x, y-len/2, len/2);
+        drawSquare(x+len/2, y, len/2);
+        drawSquare(x, y+len/2, len/2);
+        drawSquare(x-len/2, y, len/2);
     }
-    endShape();
-
-    text("輸入多邊形的邊數.", 280, 345);
 }
