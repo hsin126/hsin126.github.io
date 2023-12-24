@@ -3,52 +3,39 @@ function setup() {
     createCanvas(400, 400);
     background(0);
     angleMode(DEGREES);
+
+    fill(255);
+    text("輸入多邊形的邊數.", 280, 345); 
+
+    inputInt = createInput();
+    inputInt.position(290, 360);
+    inputInt.size(70);
+
+    buttonSubmit = createButton("輸入");
+    buttonSubmit.position(360, 360);
+    buttonSubmit.mousePressed(drawPolygon);
+    
+    stroke('yellow')
     noFill();
 }
-function draw() {
+function drawPolygon() {
     // put drawing code here
-    x = width*0.5; // x coordinate of the center
-    y = height*0.5; // y coordinate of the center
-    r = 150; // radius
-    d = 0;  // start angle
-    step = 360/5; // increasing angle
- 
-    stroke('yellow'); // draw the pentagon with yellow line
+    background(0);
+
+    x = width*0.5;
+    y = height*0.5;
+    var numEdges = int(inputInt.value());
+    r = 150;
+    d = 180;
 
     beginShape();
-
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-  
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-  
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-    
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-
-    sx = x + r*sin(d);
-    sy = y + r*cos(d);
-    d += step;
-    vertex(sx, sy);
-
+    for (i=0; i<=numEdges; i++) {
+        sx = x + r*sin(d);
+        sy = y + r*cos(d);
+        vertex(sx, sy);
+        d += (360/numEdges);
+    }
     endShape();
 
-    stroke('lightskyblue');
-    circle(x, y, 2*r);
+    text("輸入多邊形的邊數.", 280, 345);
 }
